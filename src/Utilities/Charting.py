@@ -1,6 +1,7 @@
 import pandas as pd
 from matplotlib import pyplot as plt
 import seaborn as sns
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 
 
 def plot_timeseries(df : pd.DataFrame, x_column : str, y_column : str, title : str = None,
@@ -42,6 +43,30 @@ def plot_boxplot(df : pd.DataFrame, value_column : str, grouping_column: str, ti
     plt.xlabel(value_column.title() if value_column_label is None else value_column_label, fontsize=18)
     plt.ylabel(grouping_column.title() if grouping_column_label is None else grouping_column_label, fontsize=18)
     plt.title(title, fontsize=20)
+
+    if show:
+        plt.show()
+
+    return plt
+
+def plot_autocorrelation_factor(df: pd.DataFrame, value_column: str, lags: int = 25,
+                                color: str = 'blue', show: bool = True):
+    plot_acf(df[value_column], lags=lags, color=color)
+    plt.xlabel('Lag/Shift', fontsize=14)
+    plt.ylabel('Correlation Coefficient', fontsize=14)
+    plt.tight_layout()
+
+    if show:
+        plt.show()
+
+    return plt
+
+def plot_partial_autocorrelation_factor(df: pd.DataFrame, value_column: str, lags: int = 25,
+                                color: str = 'blue', show: bool = True):
+    plot_pacf(df[value_column], lags=lags, color=color)
+    plt.xlabel('Lag/Shift', fontsize=14)
+    plt.ylabel('Correlation Coefficient', fontsize=14)
+    plt.tight_layout()
 
     if show:
         plt.show()
