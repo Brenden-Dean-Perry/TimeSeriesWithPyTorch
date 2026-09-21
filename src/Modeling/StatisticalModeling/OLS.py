@@ -19,7 +19,7 @@ def ols_model_summary(x : np.array, y : np.array):
     # 3. Print the comprehensive statistics report
     print(model.summary())
 
-def ols_model(x : np.array, y : np.array):
+def ols_model(x : np.array, y : np.array) -> LinearRegression:
     # 1. Instantiate and fit the model
     model = LinearRegression()
     model.fit(x, y)
@@ -27,8 +27,6 @@ def ols_model(x : np.array, y : np.array):
     # 2. Extract key metrics
     print(f"Intercept (b0): {model.intercept_}")
     print(f"Slope Coefficient (b1): {model.coef_[0]}")
-    print(f"R-squared: {model.score(X, y)}")
+    print(f"R-squared: {model.score(x, y)}")
 
-    # 3. Predict new values
-    predictions = model.predict(np.array([[6]]))
-    print(f"Prediction for X=6: {predictions[0]}")
+    return model
